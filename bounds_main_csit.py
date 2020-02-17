@@ -45,6 +45,11 @@ def main(r_s, r_c, lam_x, lam_y, snr_eve_db, variable="snr"):
         r_s = np.logspace(-3, 1, 30)
         xvar = r_s
         filename = f"secrecy_outage_main_csit-eve_{snr_eve_db:.1f}-bob_{snr_db:.1f}-lx_{lam_x}-ly_{lam_y}.dat"
+    elif variable == "snr_eve":
+        snr_db = 15
+        snr_eve_db = np.arange(-30, 21, .5)
+        xvar = snr_eve_db
+        filename = f"secrecy_outage_main_csit-bob_{snr_db:.1f}-rs_{r_s}-lx_{lam_x}-ly_{lam_y}.dat"
     snr_bob = 10**(snr_db/10)
     snr_eve = 10**(snr_eve_db/10)
     lam_xt = lam_x/snr_bob
