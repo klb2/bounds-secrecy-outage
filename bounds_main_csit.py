@@ -13,7 +13,7 @@ def g(y, r_s, lam_x, lam_y):
 
 def lower_bound_main_csit(r_s, r_c, lam_x, lam_y):
     yopt = _yopt_lower(r_s, lam_x, lam_y)
-    print(yopt)
+    #print(yopt)
     return g(yopt, r_s, lam_x, lam_y)
 
 
