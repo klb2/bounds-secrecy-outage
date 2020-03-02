@@ -4,8 +4,12 @@ import pandas as pd
 
 def _yopt_lower(r_s, lam_x, lam_y):
     yopt = np.minimum((lam_x*(2**r_s-1)+np.log(lam_y/lam_x))/(lam_x-lam_y), 0)
-    _idx = np.where(lam_x <= lam_y)
-    yopt[_idx] = 0
+    if np.isscalar(yopt):
+        if lam_x <= lam_y:
+            yopt = 0
+    else:
+        _idx = np.where(lam_x <= lam_y)
+        yopt[_idx] = 0
     return yopt
 
 def g(y, r_s, lam_x, lam_y):
