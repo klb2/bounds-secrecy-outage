@@ -69,6 +69,44 @@ def main(r_s, r_c, lam_x, lam_y, snr_eve_db, variable="snr"):
     plt.semilogy(xvar, indep)
     plt.show()
 
+def cdf_xt(x, lam=1):
+    return np.maximum(1.-np.exp(-x*lam), 0)
+
+def cdf_yt(y, lam=1):
+    return np.minimum(np.exp(y*lam), 1)
+
+def copula_lower_main_csit(a, b, r_s=1, lam_xt=1, lam_yt=1):
+    t = lower_bound_main_csit(r_s, 1, lam_xt, lam_yt)
+    c = np.minimum(a, b)
+    idx_t = np.where(np.logical_and(a >= t, b >= t))
+    c[idx_t] = np.maximum(a[idx_t] + b[idx_t] - 1, t)
+    return c
+
+def joint_pdf_lower_main_csit(snr_bob_db=0, snr_eve_db=0, r_s=1, lam_x=1, lam_y=1):
+    n_samples = 50
+    xlim = [0, 2]
+    ylim = [0, 2]
+    x, stepx = np.linspace(*xlim, num=n_samples, retstep=True)
+    y, stepy = np.linspace(*ylim, num=n_samples, retstep=True)
+    X, Y = np.meshgrid(x, y)
+    snr_bob = 10**(snr_bob_db/10)
+    snr_eve = 10**(snr_eve_db/10)
+    lam_xt = lam_x/snr_bob
+    lam_yt = lam_y/(snr_eve*2**r_s)
+    Xt = snr_bob*X
+    Yt = -2**r_s*snr_eve*Y
+    marg_cdf_xt = cdf_xt(Xt, lam=lam_xt)
+    marg_cdf_yt = cdf_yt(Yt, lam=lam_yt)
+    joint_cdf = copula_lower_main_csit(marg_cdf_xt, marg_cdf_yt, r_s=r_s, lam_xt=lam_xt, lam_yt=lam_yt)
+    _gradx = np.gradient(joint_cdf, snr_bob*stepx, axis=0)
+    joint_pdf = np.gradient(_gradx, -2**r_s*snr_eve*stepy, axis=1)
+    filename = "joint_pdf_main_csit-bob{}-eve{}-rs{}.dat".format(snr_bob_db,
+                                                                 snr_eve_db,
+                                                                 r_s)
+    print(np.min(joint_pdf), np.max(joint_pdf))
+    results = {"X": X.ravel(), "Y": Y.ravel(), "pdf": joint_pdf.ravel()}
+    export_results(results, filename)
+
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()
