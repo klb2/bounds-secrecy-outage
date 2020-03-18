@@ -2,12 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-def _yopt_lower(r_s, r_c, lam_x, lam_y):
-    yopt = np.minimum((lam_x*(2**r_s-1)+np.log(lam_y/lam_x))/(lam_x-lam_y), 2**r_s-2**(r_s+r_c))
-    _idx = np.where(lam_x <= lam_y)
-    yopt[_idx] = 2**r_s-2**(r_s+r_c) 
-    return yopt
-
 def g1(y, r_s, r_c, lam_x, lam_y):
     return np.exp(lam_y*y) - np.exp(-lam_x*(2**r_s-1-y))
 
@@ -15,7 +9,6 @@ def g2(y, r_s, r_c, lam_x, lam_y):
     return np.exp(lam_y*y) - np.exp(-lam_x*(2**(r_s+r_c)-1))
 
 def lower_bound_no_csit(r_s, r_c, lam_x, lam_y):
-    #yopt = _yopt_lower(r_s, r_c, lam_x, lam_y)
     yopt = np.minimum((lam_x*(2**r_s-1)+np.log(lam_y/lam_x))/(lam_x-lam_y), 2**r_s-2**(r_s+r_c))
     _g1 = g1(yopt, r_s, r_c, lam_x, lam_y)
     _g2 = 1. - np.exp(-lam_x*(2**(r_s+r_c)-1))
