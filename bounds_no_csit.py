@@ -20,8 +20,10 @@ def upper_bound_no_csit(r_s, r_c, lam_x, lam_y):
     return np.minimum(upper, 1)
 
 def independent_no_csit(r_s, r_c, lam_x, lam_y):
-    _part1 = 1. - np.exp(-lam_x*(2**(r_s+r_c)-1))
-    _part2 = (lam_x*np.exp(lam_x+lam_y*2**r_s-2**(r_s+r_c)*(lam_x+lam_y)))/(lam_x+lam_y)
+    s = 2**(r_s)-1
+    t = 2**(r_s+r_c)-1
+    _part1 = 1. - np.exp(-lam_x*t)
+    _part2 = (lam_x*np.exp(lam_y*(s-t)-lam_x*t))/(lam_x+lam_y)
     return _part1 + _part2
 
 def export_results(results, **kwargs):
