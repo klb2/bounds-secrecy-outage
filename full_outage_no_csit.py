@@ -34,6 +34,14 @@ def outage_probability(r_s, r_c, lam_x, lam_y, copula):
     fyt = cdf_yt(s-t, lam_y)
     return dual_copula(fxt, fyt, copula)
 
+def lower_bound_no_csit_full(*args, **kwargs):
+    return outage_probability(*args, **kwargs, copula="lower")
+
+def upper_bound_no_csit_full(*args, **kwargs):
+    return outage_probability(*args, **kwargs, copula="upper")
+
+def independent_no_csit_full(*args, **kwargs):
+    return outage_probability(*args, **kwargs, copula="indep")
 
 
 def export_results(results, **kwargs):

@@ -3,19 +3,24 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 def g1(x, r_s, r_c, lam_x, lam_y):
-    return np.exp(lam_y*(2**r_s-1-x)) - np.exp(-lam_x*x)
+    return np.minimum(np.exp(lam_y*(2**r_s-1-x)), 1) - np.exp(-lam_x*x)
 
 def g2(x, r_s, r_c, lam_x, lam_y):
     return np.exp(lam_y*(2**r_s-2**(r_s+r_c))) - np.exp(-lam_x*x)
 
 def lower_bound_main_csit_full(r_s, r_c, lam_x, lam_y):
-    xopt = np.minimum((lam_y*(2**r_s-1)+np.log(lam_y/lam_x))/(lam_y-lam_x), 2**(r_s+r_c)-1)
+    s = 2**r_s - 1
+    t = 2**(r_s+r_c)-1
+    xopt = np.clip((lam_y*s+np.log(lam_y/lam_x))/(lam_y-lam_x), s, t)
+    _g0 = 1. - np.exp(-lam_x*s)
     _g1 = g1(xopt, r_s, r_c, lam_x, lam_y)
-    _g2 = np.exp(lam_y*(2**r_s - 2**(r_s+r_c)))
-    return np.maximum(_g1, _g2)
+    _g2 = np.exp(lam_y*(s-t))
+    return np.maximum(np.maximum(_g1, _g2), _g0)
 
 def upper_bound_main_csit_full(r_s, r_c, lam_x, lam_y):
-    xopt = np.minimum((lam_y*(2**r_s-1)+np.log(lam_y/lam_x))/(lam_y-lam_x), 2**(r_s+r_c)-1)
+    s = 2**r_s - 1
+    t = 2**(r_s+r_c)-1
+    xopt = np.clip((lam_y*s+np.log(lam_y/lam_x))/(lam_y-lam_x), s, t)
     upper = 1. - np.exp(-lam_x*xopt) + np.exp(lam_y*(2**r_s-1-xopt))
     return np.minimum(upper, 1)
 
