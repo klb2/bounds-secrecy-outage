@@ -10,24 +10,30 @@ such that one can easily reproduce the plots presented in the paper as well as
 changing parameters. One can also use this framework as a baseline and adjust
 it to their own needs, e.g., for different channel models.
 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gl/klb2%2Fbounds-secrecy-outage/master?filepath=Bounds%20Secrecy%20Outage%20Probability.ipynb)
+
 ## File List
 The following files are provided in this repository:
 
-* [Bounds Secrecy Outage Probability.ipynb](https://mybinder.org):
+* [Bounds Secrecy Outage Probability.ipynb](https://mybinder.org/v2/gl/klb2%2Fbounds-secrecy-outage/master?filepath=Bounds%20Secrecy%20Outage%20Probability.ipynb):
   Jupyter notebook containing the results for Rayleigh fading presented in the
   paper.
 * `Bounds_Secrecy_Outage.nb`: Mathematica notebook that contains all
   calculations for Rayleigh fading.
 * `bounds_main_csit.py` and `bounds_no_csit.py`: Python modules that contain
-  the functions for Rayleigh fading for the scenarios of main CSIT and no CSIT.
+  the functions for Rayleigh fading for the scenarios of perfect main CSIT and
+  only statistical CSIT.
+* `full_outage_main_csit.py` and `full_outage_no_csit.py`: Python modules that
+  contain the functions for Rayleigh fading for the alternative, pessimistic
+  secrecy outage definition.
 
 
 ## Usage
 The calculations are provided in a Mathematica notebook and a Python/Jupyter
 notebook.  
-If you do not have a Jupyter installation, you can also run it online.
-
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org)
+If you do not have a Jupyter installation, you can also run it online using a
+service like Binder.
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gl/klb2%2Fbounds-secrecy-outage/master?filepath=Bounds%20Secrecy%20Outage%20Probability.ipynb)
 
 ### Local Installation
 If you want to run the files locally, make sure you have 
