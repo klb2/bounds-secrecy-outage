@@ -1,6 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import pandas as pd
 
 def g1(y, r_s, r_c, lam_x, lam_y):
     return np.exp(lam_y*y) - np.exp(-lam_x*(2**r_s-1-y))
@@ -27,6 +26,7 @@ def independent_no_csit(r_s, r_c, lam_x, lam_y):
     return _part1 + _part2
 
 def export_results(results, **kwargs):
+    import pandas as pd
     filename = "secrecy_outage_no_csit-eve_{snr_eve_db:.1f}-rs_{r_s}-rc_{r_c}-lx_{lam_x}-ly_{lam_y}.dat".format(**kwargs)
     data = pd.DataFrame.from_dict(results)
     data.to_csv(filename, sep="\t", index=False)

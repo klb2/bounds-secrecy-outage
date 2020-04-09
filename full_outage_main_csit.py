@@ -1,6 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import pandas as pd
 
 def g1(x, r_s, r_c, lam_x, lam_y):
     return np.minimum(np.exp(lam_y*(2**r_s-1-x)), 1) - np.exp(-lam_x*x)
@@ -33,6 +32,7 @@ def independent_main_csit_full(r_s, r_c, lam_x, lam_y):
     return _part1 + _part2 + _part3
 
 def export_results(results, **kwargs):
+    import pandas as pd
     filename = "full_secrecy_outage_main_csit-eve_{snr_eve_db:.1f}-rs_{r_s}-rc_{r_c}-lx_{lam_x}-ly_{lam_y}.dat".format(**kwargs)
     data = pd.DataFrame.from_dict(results)
     data.to_csv(filename, sep="\t", index=False)

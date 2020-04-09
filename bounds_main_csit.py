@@ -1,6 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import pandas as pd
 
 def _yopt_lower(r_s, lam_x, lam_y):
     yopt = np.minimum((lam_x*(2**r_s-1)+np.log(lam_y/lam_x))/(lam_x-lam_y), 0)
@@ -36,6 +35,7 @@ def independent_main_csit(r_s, r_c, lam_x, lam_y):
     return 1.-(lam_y*np.exp(-lam_x*(2**r_s-1)))/(lam_x+lam_y)
 
 def export_results(results, filename):
+    import pandas as pd
     data = pd.DataFrame.from_dict(results)
     data.to_csv(filename, sep="\t", index=False)
 

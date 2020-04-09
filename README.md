@@ -1,9 +1,7 @@
 # Bounds on the Secrecy Outage Probability
 
 This repository is part of the publication "Bounds on the Secrecy Outage
-Probability for Dependent Fading Channels" (Karl-Ludwig Besser and Eduard
-Jorswieck, Submitted to IEEE Transactions on Information Forensics and
-Security, 2020, [arXiv:XXX](https://arxiv.org/abs/XXX)).
+Probability for Dependent Fading Channels" (Karl-Ludwig Besser and Eduard Jorswieck, Submitted to IEEE Transactions on Communications, 2020, [arXiv:XXX](https://arxiv.org/abs/XXX)).
 
 The idea is to give an interactive version of the calculations to the reader
 such that one can easily reproduce the plots presented in the paper as well as
