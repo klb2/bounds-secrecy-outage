@@ -1,3 +1,31 @@
+"""Calculations of the bounds for dependent Rayleigh fading channels with
+perfect main CSIT.
+
+This module contains different functions to calculate the bounds on the secrecy
+outage probability for dependent Rayleigh fading channels with perfect main
+CSIT.
+
+
+Copyright (C) 2020 Karl-Ludwig Besser
+
+This program is used in the article:
+Karl-Ludwig Besser and Eduard Jorswieck, "Bounds on the Secrecy Outage
+Probability for Dependent Fading Channels", submitted to IEEE Transactions on
+Communications.
+
+License:
+This program is licensed under the GPLv3 license. If you in any way use this
+code for research that results in publications, please cite our original
+article listed above.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+
+Author: Karl-Ludwig Besser, Technische Universität Braunschweig
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 
