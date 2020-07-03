@@ -110,6 +110,13 @@ def copula_lower_main_csit(a, b, r_s=1, lam_xt=1, lam_yt=1):
     c[idx_t] = np.maximum(a[idx_t] + b[idx_t] - 1, t)
     return c
 
+def copula_upper_main_csit(a, b, r_s=1, lam_xt=1, lam_yt=1):
+    r = upper_bound_main_csit(r_s, 1, lam_xt, lam_yt)
+    c = np.minimum(a, b)
+    idx_r = np.where(np.logical_and(a <= r, b <= r))
+    c[idx_r] = np.maximum(a[idx_r] + b[idx_r] - r, 0)
+    return c
+
 def joint_pdf_lower_main_csit(snr_bob_db=0, snr_eve_db=0, r_s=1, lam_x=1, lam_y=1):
     n_samples = 50
     xlim = [0, 2]
