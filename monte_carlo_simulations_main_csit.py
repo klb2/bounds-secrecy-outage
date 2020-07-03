@@ -4,7 +4,8 @@ import numpy as np
 from scipy import stats
 import matplotlib.pyplot as plt
 
-from bounds_main_csit import lower_bound_main_csit, upper_bound_main_csit, independent_main_csit
+from bounds_main_csit import (lower_bound_main_csit, upper_bound_main_csit,
+                              independent_main_csit, export_results)
 
 def monte_carlo(func):
     @functools.wraps(func)
@@ -61,25 +62,29 @@ def main(r_s, r_c, lam_x, lam_y, snr_eve_db, num_samples=1000):
     lower = lower_bound_main_csit(r_s, r_c, lam_xt, lam_yt)
     upper = upper_bound_main_csit(r_s, r_c, lam_xt, lam_yt)
     indep = independent_main_csit(r_s, r_c, lam_xt, lam_yt)
-    #results = {"snr": snr_db, "upper": upper, "lower": lower, "indep": indep}
-    #export_results(results, filename=filename)
     plt.semilogy(snr_db, lower)
     plt.semilogy(snr_db, upper)
     plt.semilogy(snr_db, indep)
 
     monte_carlo_outages = {}
-    monte_carlo_outages["lower"] = monte_carlo_lower_bound(r_s, lam_x, lam_y,
-                                                           snr_bob, snr_eve,
-                                                           num_samples)
-    monte_carlo_outages["upper"] = monte_carlo_upper_bound(r_s, lam_x, lam_y,
-                                                           snr_bob, snr_eve,
-                                                           num_samples)
-    monte_carlo_outages["indep"] = monte_carlo_indep(r_s, lam_x, lam_y,
-                                                     snr_bob, snr_eve,
-                                                     num_samples)
-    plt.semilogy(snr_db, monte_carlo_outages["lower"], 'o', label="MC Lower")
-    plt.semilogy(snr_db, monte_carlo_outages["upper"], 'o', label="MC Upper")
-    plt.semilogy(snr_db, monte_carlo_outages["indep"], 'o', label="MC Indep")
+    monte_carlo_outages["lowerMC"] = monte_carlo_lower_bound(r_s, lam_x, lam_y,
+                                                             snr_bob, snr_eve,
+                                                             num_samples)
+    monte_carlo_outages["upperMC"] = monte_carlo_upper_bound(r_s, lam_x, lam_y,
+                                                             snr_bob, snr_eve,
+                                                             num_samples)
+    monte_carlo_outages["indepMC"] = monte_carlo_indep(r_s, lam_x, lam_y,
+                                                       snr_bob, snr_eve,
+                                                       num_samples)
+    plt.semilogy(snr_db, monte_carlo_outages["lowerMC"], 'o', label="MC Lower")
+    plt.semilogy(snr_db, monte_carlo_outages["upperMC"], 'o', label="MC Upper")
+    plt.semilogy(snr_db, monte_carlo_outages["indepMC"], 'o', label="MC Indep")
+    plt.xlabel("SNR Bob [dB]")
+    plt.ylabel("Secrecy Outage Probability")
+    filename = f"secrecy_outage_main_csit-eve_{snr_eve_db:.1f}-rs_{r_s}-lx_{lam_x}-ly_{lam_y}-MC.dat"
+    results = {"snr": snr_db, "upper": upper, "lower": lower, "indep": indep}
+    results.update(monte_carlo_outages)
+    export_results(results, filename=filename)
     plt.legend()
 
 monte_carlo_lower_bound = monte_carlo(sample_copula_lower_main_csit)
