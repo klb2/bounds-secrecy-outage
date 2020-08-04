@@ -1,5 +1,6 @@
 import numpy as np
 from scipy import optimize
+import matplotlib.pyplot as plt
 
 from bounds_main_csit import (lower_bound_main_csit, upper_bound_main_csit,
                               independent_main_csit, export_results)
@@ -34,18 +35,26 @@ def find_rate_to_eps(eps_target, r_c, lam_x, lam_y, snr_bob, snr_eve, function="
     lam_xt = lam_x/snr_bob
     sol = optimize.root_scalar(
             lambda r_s: function(r_s, r_c, lam_xt, lam_y/(snr_eve*2**r_s))-eps_target,
-            bracket=(0,10))
-    print(sol)
+            bracket=(0, 10))
+    #print(sol)
     return sol.root
 
 def main(r_c, lam_x, lam_y, snr_db, snr_eve_db):
     snr_bob = 10**(snr_db/10)
     snr_eve = 10**(snr_eve_db/10)
-    eps = np.linspace(0.1, .8, 10)
+    #eps = np.linspace(0.1, .8, 10)
+    eps = np.logspace(-4, 0, 250, endpoint=False)
     names = ["lower", "indep", "upper"]
     rate = {_name: [find_rate_to_eps(_eps, r_c, lam_x, lam_y, snr_bob, snr_eve,
                                      function=_name) for _eps in eps]
             for _name in names}
+    fig, ax = plt.subplots()
+    for _name, _rates in rate.items():
+        ax.loglog(eps, _rates, label=_name)
+    ax.legend()
+    filename = "eps_outage_sec_rates-main_csit-lx{}-ly{}-snrx{}-snry{}.dat".format(lam_x, lam_y, snr_db, snr_eve_db)
+    rate['eps'] = eps
+    export_results(rate, filename)
     print(rate)
 
 if __name__ == "__main__":
@@ -58,3 +67,4 @@ if __name__ == "__main__":
     parser.add_argument("-e", dest="snr_eve_db", type=float, default=0)
     params = vars(parser.parse_args())
     main(**params)
+    plt.show()
