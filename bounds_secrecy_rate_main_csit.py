@@ -1,0 +1,60 @@
+import numpy as np
+from scipy import optimize
+
+from bounds_main_csit import (lower_bound_main_csit, upper_bound_main_csit,
+                              independent_main_csit, export_results)
+
+def limit_eps_rs0(lam_x, lam_y, snr_bob, snr_eve, function="lower"):
+    _lam_xt = lam_x/snr_bob
+    _lam_yt = lam_y/snr_eve
+    if function == "indep":
+        return _lam_xt/(_lam_xt+_lam_yt)
+    elif function == "lower":
+        if _lam_yt < _lam_xt:
+            return np.exp(_lam_yt*np.log(_lam_yt/_lam_xt)/(_lam_xt-_lam_yt)) - np.exp(_lam_xt*np.log(_lam_yt/_lam_xt)/(_lam_xt-_lam_yt))
+        else:
+            return 0.
+    elif function == "upper":
+        if _lam_xt >= _lam_yt:
+            return 1.
+        else:
+            return 1.+np.exp(_lam_yt*np.log(_lam_yt/_lam_xt)/(_lam_xt-_lam_yt)) - np.exp(_lam_xt*np.log(_lam_yt/_lam_xt)/(_lam_xt-_lam_yt))
+
+
+def find_rate_to_eps(eps_target, r_c, lam_x, lam_y, snr_bob, snr_eve, function="lower"):
+    _limit = limit_eps_rs0(lam_x, lam_y, snr_bob, snr_eve, function)
+    if eps_target < _limit:
+        return 0.
+    if function == "lower":
+        function = lower_bound_main_csit
+    elif function == "indep":
+        function = independent_main_csit
+    elif function == "upper":
+        function = upper_bound_main_csit
+    lam_xt = lam_x/snr_bob
+    sol = optimize.root_scalar(
+            lambda r_s: function(r_s, r_c, lam_xt, lam_y/(snr_eve*2**r_s))-eps_target,
+            bracket=(0,10))
+    print(sol)
+    return sol.root
+
+def main(r_c, lam_x, lam_y, snr_db, snr_eve_db):
+    snr_bob = 10**(snr_db/10)
+    snr_eve = 10**(snr_eve_db/10)
+    eps = np.linspace(0.1, .8, 10)
+    names = ["lower", "indep", "upper"]
+    rate = {_name: [find_rate_to_eps(_eps, r_c, lam_x, lam_y, snr_bob, snr_eve,
+                                     function=_name) for _eps in eps]
+            for _name in names}
+    print(rate)
+
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-c", dest="r_c", default=0.5, type=float)
+    parser.add_argument("-x", dest="lam_x", default=1, type=float)
+    parser.add_argument("-y", dest="lam_y", default=1, type=float)
+    parser.add_argument("-b", dest="snr_db", type=float, default=5)
+    parser.add_argument("-e", dest="snr_eve_db", type=float, default=0)
+    params = vars(parser.parse_args())
+    main(**params)
