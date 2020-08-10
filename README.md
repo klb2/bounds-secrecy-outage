@@ -23,6 +23,12 @@ The following files are provided in this repository:
 * `bounds_main_csit.py` and `bounds_no_csit.py`: Python modules that contain
   the functions for Rayleigh fading for the scenarios of perfect main CSIT and
   only statistical CSIT.
+* `monte_carlo_simulations_main_csit.py` and
+  `monte_carlo_simulations_no_csit.py`: Python modules that contain the
+  functions to estimate the secrecy outage probability using Monte Carlo
+  simulations.
+* `bounds_secrecy_rate_main_csit.py`: Python module to calculate the eps-outage
+  secrecy rate for Rayleigh fading channels with perfect main CSIT.
 * `full_outage_main_csit.py` and `full_outage_no_csit.py`: Python modules that
   contain the functions for Rayleigh fading for the alternative, pessimistic
   secrecy outage definition.
