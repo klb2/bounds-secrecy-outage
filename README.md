@@ -59,6 +59,12 @@ Afterwards, you can start the notebook by running
 jupyter notebook 'Bounds Secrecy Outage Probability.ipynb'
 ```
 
+The present code was developed and tested with the following versions:
+- Python 3.8
+- Jupyter 1.0
+- numpy 1.18
+- scipy 1.4
+
 
 ## Acknowledgements
 This research was supported in part by the Deutsche Forschungsgemeinschaft
