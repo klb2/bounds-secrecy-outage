@@ -45,7 +45,7 @@ service like Binder.
 If you want to run the files locally, make sure you have 
 [Python3](https://www.python.org/downloads/) installed on your computer.
 
-You can install the requires packages (including Jupyter) by running
+You can install the required packages (including Jupyter) by running
 ```
 pip3 install -r requirements.txt
 jupyter nbextension enable --py widgetsnbextension
