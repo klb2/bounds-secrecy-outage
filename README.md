@@ -64,6 +64,7 @@ The present code was developed and tested with the following versions:
 - Jupyter 1.0
 - numpy 1.18
 - scipy 1.4
+- ipympl 0.5
 
 
 ## Acknowledgements
