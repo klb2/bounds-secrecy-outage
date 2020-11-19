@@ -2,7 +2,8 @@
 
 This repository is part of the publication "Bounds on the Secrecy Outage
 Probability for Dependent Fading Channels" (Karl-Ludwig Besser and Eduard
-Jorswieck, Submitted to IEEE Transactions on Communications, 2020,
+Jorswieck, IEEE Transactions on Communications, 2020 (Early Access),
+[DOI:10.1109/TCOMM.2020.3026654](https://doi.org/10.1109/TCOMM.2020.3026654),
 [arXiv:2004.06644](https://arxiv.org/abs/2004.06644)).
 
 The idea is to give an interactive version of the calculations to the reader
@@ -64,6 +65,7 @@ The present code was developed and tested with the following versions:
 - Jupyter 1.0
 - numpy 1.18
 - scipy 1.4
+- matplotlib 3.3
 - ipympl 0.5
 
 
