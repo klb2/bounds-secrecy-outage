@@ -2,7 +2,8 @@
 
 This repository is part of the publication "Bounds on the Secrecy Outage
 Probability for Dependent Fading Channels" (Karl-Ludwig Besser and Eduard
-Jorswieck, IEEE Transactions on Communications, 2020 (Early Access),
+Jorswieck, IEEE Transactions on Communications, vol. 69, no. 1, pp. 443-456,
+Jan. 2021)
 [DOI:10.1109/TCOMM.2020.3026654](https://doi.org/10.1109/TCOMM.2020.3026654),
 [arXiv:2004.06644](https://arxiv.org/abs/2004.06644)).
 
@@ -78,3 +79,22 @@ This research was supported in part by the Deutsche Forschungsgemeinschaft
 This program is licensed under the GPLv3 license. If you in any way use this
 code for research that results in publications, please cite our original
 article listed above.
+
+You can use the following BibTeX entry
+```bibtex
+@article{Besser2021,
+  author = {Besser, Karl-Ludwig and Jorswieck, Eduard A.},
+  title = {Bounds on the Secrecy Outage Probability for Dependent Fading Channels},
+  journal = {IEEE Transactions on Communications},
+  month = {1},
+  number = {1},
+  pages = {443--456},
+  publisher = {IEEE},
+  volume = {69},
+  year = {2021},
+  doi = {10.1109/TCOMM.2020.3026654},
+  archivePrefix = {arXiv},
+  eprint = {2004.06644},
+  primaryClass = {cs.IT},
+}
+```

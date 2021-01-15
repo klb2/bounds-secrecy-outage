@@ -11,7 +11,7 @@ Copyright (C) 2020 Karl-Ludwig Besser
 This program is used in the article:
 Karl-Ludwig Besser and Eduard Jorswieck, "Bounds on the Secrecy Outage
 Probability for Dependent Fading Channels", IEEE Transactions on
-Communications, 2020.
+Communications, vol. 69, no. 1, pp. 443-456, Jan. 2021.
 
 License:
 This program is licensed under the GPLv3 license. If you in any way use this
